@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import raw from './data/items-18.2.json'
 import { FlashcardMode } from './components/FlashcardMode'
 import { QuizMode } from './components/QuizMode'
+import { ReverseQuizMode } from './components/ReverseQuizMode'
 import type { ComponentId, ItemsData, Item, Mode, ProgressState } from './types'
 import { getComponentMap, loadProgress, saveProgress } from './utils'
 import './App.css'
@@ -49,6 +50,21 @@ export default function App() {
     )
   }
 
+  if (mode === 'reverse') {
+    return (
+      <div className="app">
+        <ReverseQuizMode
+          items={itemsData.items}
+          components={itemsData.components}
+          map={map}
+          progress={progress}
+          onProgress={updateProgress}
+          onBack={() => setMode('home')}
+        />
+      </div>
+    )
+  }
+
   if (mode === 'flashcard') {
     return (
       <div className="app">
@@ -78,7 +94,7 @@ export default function App() {
         <p className="lede">
           經典 8 元件 · {itemsData.items.length} 組合成
           <br />
-          測驗 + 閃卡 · 進度存在本機
+          測驗 + 反向 + 閃卡 · 進度存在本機
         </p>
       </header>
 
@@ -101,6 +117,10 @@ export default function App() {
         <button type="button" className="btn primary xl" onClick={() => setMode('quiz')}>
           開始測驗
           <span className="btn-sub">兩題選擇：名稱 + 效果</span>
+        </button>
+        <button type="button" className="btn secondary xl" onClick={() => setMode('reverse')}>
+          反向測驗
+          <span className="btn-sub">給合成裝 · 從 8 件裡選兩件</span>
         </button>
         <button type="button" className="btn secondary xl" onClick={() => setMode('flashcard')}>
           閃卡複習

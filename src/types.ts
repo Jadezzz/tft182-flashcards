@@ -32,7 +32,7 @@ export interface ItemsData {
   items: Item[]
 }
 
-export type Mode = 'home' | 'quiz' | 'flashcard'
+export type Mode = 'home' | 'quiz' | 'flashcard' | 'reverse'
 
 export interface ProgressState {
   seen: string[]

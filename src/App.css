@@ -404,3 +404,155 @@
     font-size: 1.5rem;
   }
 }
+
+.chip-selected {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 55%, transparent);
+  background: color-mix(in srgb, var(--primary) 12%, var(--bg-elevated));
+}
+
+.chip-clickable {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  touch-action: manipulation;
+}
+
+.reverse-prompt .item-en {
+  margin: 0;
+}
+
+.reverse-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reverse-slots-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.reverse-slots-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.reverse-slot {
+  min-height: 72px;
+  border-radius: 14px;
+  border: 1px dashed var(--border);
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  color: inherit;
+  font: inherit;
+}
+
+.reverse-slot:disabled {
+  cursor: default;
+}
+
+.reverse-slot.correct {
+  border-style: solid;
+  border-color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 14%, var(--bg-elevated));
+}
+
+.reverse-slot.wrong {
+  border-style: solid;
+  border-color: var(--bad);
+  background: color-mix(in srgb, var(--bad) 14%, var(--bg-elevated));
+}
+
+.reverse-slot-empty {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.component-pick {
+  position: relative;
+  min-height: 64px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  color: inherit;
+  font: inherit;
+}
+
+.component-pick:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.component-pick.selected {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, var(--bg-card));
+}
+
+.component-pick .chip {
+  border: none;
+  background: transparent;
+  padding: 4px;
+  min-height: 0;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.component-pick-count {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+@media (min-width: 380px) {
+  .component-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .component-pick {
+    flex-direction: column;
+    min-height: 96px;
+    padding: 10px 6px;
+  }
+
+  .component-pick .chip {
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .component-pick .chip-name {
+    font-size: 0.78rem;
+    text-align: center;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 374px) {
+  .component-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
