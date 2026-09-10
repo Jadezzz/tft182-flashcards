@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import type { Component, ComponentId, Item, ProgressState } from '../types'
 import { shuffle } from '../utils'
+import { ItemIcon } from './ItemIcon'
 import { RecipePair } from './RecipePair'
 
 interface Props {
@@ -74,6 +75,7 @@ export function FlashcardMode({ items, map, progress, onProgress, onBack }: Prop
           </div>
         ) : (
           <div className="card-face back">
+            <ItemIcon item={current} size={72} className="item-icon-lg" />
             <h2 className="item-name">{current.nameZh}</h2>
             <p className="item-en">{current.nameEn}</p>
             <p className="item-effect">{current.effect}</p>

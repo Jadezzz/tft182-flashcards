@@ -13,6 +13,7 @@ export interface Component {
   nameZh: string
   nameEn: string
   color: string
+  icon: string
 }
 
 export interface Item {
@@ -21,6 +22,7 @@ export interface Item {
   nameEn: string
   components: [ComponentId, ComponentId]
   effect: string
+  icon: string
 }
 
 export interface ItemsData {

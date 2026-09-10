@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import type { Component, ComponentId, Item, ProgressState } from '../types'
 import { pickDistractors, shuffle } from '../utils'
+import { ItemIcon } from './ItemIcon'
 import { RecipePair } from './RecipePair'
 
 interface Props {
@@ -15,14 +16,15 @@ type Phase = 'name' | 'effect' | 'done'
 
 interface Question {
   item: Item
-  nameOptions: string[]
+  nameOptions: Item[]
   effectOptions: string[]
 }
 
 function buildQuestion(items: Item[], item: Item): Question {
+  const nameDistractors = shuffle(items.filter((i) => i.id !== item.id)).slice(0, 3)
   return {
     item,
-    nameOptions: shuffle([item.nameZh, ...pickDistractors(items, item, 'nameZh', 3)]),
+    nameOptions: shuffle([item, ...nameDistractors]),
     effectOptions: shuffle([item.effect, ...pickDistractors(items, item, 'effect', 3)]),
   }
 }
@@ -145,7 +147,6 @@ export function QuizMode({ items, map, progress, onProgress, onBack }: Props) {
     )
   }
 
-  const options = phase === 'name' ? question.nameOptions : question.effectOptions
   const prompt = phase === 'name' ? '這組合成是哪個裝備？' : '主要效果是？'
 
   return (
@@ -166,29 +167,47 @@ export function QuizMode({ items, map, progress, onProgress, onBack }: Props) {
       </div>
 
       <div className="options" role="listbox">
-        {options.map((opt) => {
-          let cls = 'option'
-          if (selected === opt) {
-            cls += feedback === 'correct' ? ' correct' : ' wrong'
-          } else if (
-            feedback &&
-            ((phase === 'name' && opt === question.item.nameZh) ||
-              (phase === 'effect' && opt === question.item.effect))
-          ) {
-            cls += ' correct'
-          }
-          return (
-            <button
-              key={opt}
-              type="button"
-              className={cls}
-              onClick={() => answer(opt)}
-              disabled={!!feedback}
-            >
-              {opt}
-            </button>
-          )
-        })}
+        {phase === 'name'
+          ? question.nameOptions.map((optItem) => {
+              const opt = optItem.nameZh
+              let cls = 'option option-with-icon'
+              if (selected === opt) {
+                cls += feedback === 'correct' ? ' correct' : ' wrong'
+              } else if (feedback && opt === question.item.nameZh) {
+                cls += ' correct'
+              }
+              return (
+                <button
+                  key={optItem.id}
+                  type="button"
+                  className={cls}
+                  onClick={() => answer(opt)}
+                  disabled={!!feedback}
+                >
+                  <ItemIcon item={optItem} size={36} className="option-icon" />
+                  <span>{opt}</span>
+                </button>
+              )
+            })
+          : question.effectOptions.map((opt) => {
+              let cls = 'option'
+              if (selected === opt) {
+                cls += feedback === 'correct' ? ' correct' : ' wrong'
+              } else if (feedback && opt === question.item.effect) {
+                cls += ' correct'
+              }
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  className={cls}
+                  onClick={() => answer(opt)}
+                  disabled={!!feedback}
+                >
+                  {opt}
+                </button>
+              )
+            })}
       </div>
 
       {feedback && (
