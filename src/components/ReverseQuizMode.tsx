@@ -108,7 +108,7 @@ export function ReverseQuizMode({
 
       window.setTimeout(() => {
         advance(correct, item)
-      }, 900)
+      }, correct ? 2200 : 1200)
     },
     [advance, onProgress],
   )
