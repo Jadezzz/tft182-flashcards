@@ -4,7 +4,14 @@ import { FlashcardMode } from './components/FlashcardMode'
 import { QuizMode } from './components/QuizMode'
 import { ReverseQuizMode } from './components/ReverseQuizMode'
 import type { ComponentId, ItemsData, Item, Mode, ProgressState } from './types'
-import { getComponentMap, loadProgress, saveProgress } from './utils'
+import {
+  buildSrsQueue,
+  emptyProgress,
+  getComponentMap,
+  getSrsCounts,
+  loadProgress,
+  saveProgress,
+} from './utils'
 import './App.css'
 
 const itemsData: ItemsData = {
@@ -20,7 +27,12 @@ const itemsData: ItemsData = {
 export default function App() {
   const [mode, setMode] = useState<Mode>('home')
   const [progress, setProgress] = useState<ProgressState>(() => loadProgress())
+  const [sessionQueue, setSessionQueue] = useState<Item[] | null>(null)
   const map = useMemo(() => getComponentMap(itemsData), [])
+  const srsCounts = useMemo(
+    () => getSrsCounts(itemsData.items, progress),
+    [progress],
+  )
 
   const updateProgress = useCallback((next: ProgressState) => {
     setProgress(next)
@@ -28,12 +40,22 @@ export default function App() {
   }, [])
 
   const resetProgress = () => {
-    updateProgress({
-      seen: [],
-      mastered: [],
-      quizCorrect: 0,
-      quizTotal: 0,
-    })
+    updateProgress(emptyProgress())
+  }
+
+  const startQuiz = () => {
+    setSessionQueue(buildSrsQueue(itemsData.items, progress))
+    setMode('quiz')
+  }
+
+  const startReverse = () => {
+    setSessionQueue(buildSrsQueue(itemsData.items, progress))
+    setMode('reverse')
+  }
+
+  const goHome = () => {
+    setSessionQueue(null)
+    setMode('home')
   }
 
   if (mode === 'quiz') {
@@ -44,7 +66,8 @@ export default function App() {
           map={map}
           progress={progress}
           onProgress={updateProgress}
-          onBack={() => setMode('home')}
+          onBack={goHome}
+          initialQueue={sessionQueue ?? undefined}
         />
       </div>
     )
@@ -59,7 +82,8 @@ export default function App() {
           map={map}
           progress={progress}
           onProgress={updateProgress}
-          onBack={() => setMode('home')}
+          onBack={goHome}
+          initialQueue={sessionQueue ?? undefined}
         />
       </div>
     )
@@ -73,7 +97,7 @@ export default function App() {
           map={map}
           progress={progress}
           onProgress={updateProgress}
-          onBack={() => setMode('home')}
+          onBack={goHome}
         />
       </div>
     )
@@ -98,6 +122,21 @@ export default function App() {
         </p>
       </header>
 
+      <section className="stats srs-stats" aria-label="間隔重複">
+        <div className="stat highlight">
+          <strong>{srsCounts.dueToday}</strong>
+          <span>今日待複習</span>
+        </div>
+        <div className="stat">
+          <strong>{srsCounts.newOrLearning}</strong>
+          <span>新卡 / 學習中</span>
+        </div>
+        <div className="stat">
+          <strong>{accuracy === null ? '—' : `${accuracy}%`}</strong>
+          <span>測驗正確率</span>
+        </div>
+      </section>
+
       <section className="stats" aria-label="學習進度">
         <div className="stat">
           <strong>{progress.seen.length}</strong>
@@ -108,19 +147,21 @@ export default function App() {
           <span>已記住</span>
         </div>
         <div className="stat">
-          <strong>{accuracy === null ? '—' : `${accuracy}%`}</strong>
-          <span>測驗正確率</span>
+          <strong>{Object.keys(progress.srs).length}</strong>
+          <span>SRS 卡片</span>
         </div>
       </section>
 
+      <p className="srs-note">間隔重複：答對延後，答錯加快再練</p>
+
       <nav className="home-nav">
-        <button type="button" className="btn primary xl" onClick={() => setMode('quiz')}>
+        <button type="button" className="btn primary xl" onClick={startQuiz}>
           開始測驗
-          <span className="btn-sub">兩題選擇：名稱 + 效果</span>
+          <span className="btn-sub">兩題選擇：名稱 + 效果 · SRS 佇列</span>
         </button>
-        <button type="button" className="btn secondary xl" onClick={() => setMode('reverse')}>
+        <button type="button" className="btn secondary xl" onClick={startReverse}>
           反向測驗
-          <span className="btn-sub">給合成裝 · 從 8 件裡選兩件</span>
+          <span className="btn-sub">給合成裝 · 從 8 件裡選兩件 · SRS 佇列</span>
         </button>
         <button type="button" className="btn secondary xl" onClick={() => setMode('flashcard')}>
           閃卡複習

@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import type { Component, ComponentId, Item, ProgressState } from '../types'
-import { pickDistractors, shuffle } from '../utils'
+import { buildSrsQueue, gradeSrs, pickDistractors, shuffle } from '../utils'
 import { ItemIcon } from './ItemIcon'
 import { RecipePair } from './RecipePair'
 
@@ -10,6 +10,7 @@ interface Props {
   progress: ProgressState
   onProgress: (next: ProgressState) => void
   onBack: () => void
+  initialQueue?: Item[]
 }
 
 type Phase = 'name' | 'effect' | 'done'
@@ -29,14 +30,25 @@ function buildQuestion(items: Item[], item: Item): Question {
   }
 }
 
-export function QuizMode({ items, map, progress, onProgress, onBack }: Props) {
-  const [queue, setQueue] = useState<Item[]>(() => shuffle(items))
+export function QuizMode({
+  items,
+  map,
+  progress,
+  onProgress,
+  onBack,
+  initialQueue,
+}: Props) {
+  const [queue, setQueue] = useState<Item[]>(
+    () => initialQueue ?? buildSrsQueue(items, progress),
+  )
   const [retry, setRetry] = useState<Item[]>([])
   const [phase, setPhase] = useState<Phase>('name')
   const [selected, setSelected] = useState<string | null>(null)
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null)
   const [nameOk, setNameOk] = useState(false)
   const [qKey, setQKey] = useState(0)
+  const progressRef = useRef(progress)
+  progressRef.current = progress
 
   const current = queue[0]
   const question = useMemo(() => {
@@ -51,16 +63,11 @@ export function QuizMode({ items, map, progress, onProgress, onBack }: Props) {
       if (!current) return
       const rest = queue.slice(1)
       let nextRetry = retry
+      const graded = gradeSrs(progressRef.current, current.id, allCorrect)
+      onProgress(graded)
+
       if (!allCorrect) {
         nextRetry = [...retry, current]
-      } else if (!progress.mastered.includes(current.id)) {
-        onProgress({
-          ...progress,
-          mastered: [...progress.mastered, current.id],
-          seen: progress.seen.includes(current.id)
-            ? progress.seen
-            : [...progress.seen, current.id],
-        })
       }
 
       if (rest.length === 0) {
@@ -82,7 +89,7 @@ export function QuizMode({ items, map, progress, onProgress, onBack }: Props) {
       setNameOk(false)
       setQKey((k) => k + 1)
     },
-    [current, onProgress, progress, queue, retry],
+    [current, onProgress, queue, retry],
   )
 
   const answer = (value: string) => {
@@ -92,13 +99,14 @@ export function QuizMode({ items, map, progress, onProgress, onBack }: Props) {
     setSelected(value)
     setFeedback(correct ? 'correct' : 'wrong')
 
+    const prog = progressRef.current
     onProgress({
-      ...progress,
-      quizTotal: progress.quizTotal + 1,
-      quizCorrect: progress.quizCorrect + (correct ? 1 : 0),
-      seen: progress.seen.includes(question.item.id)
-        ? progress.seen
-        : [...progress.seen, question.item.id],
+      ...prog,
+      quizTotal: prog.quizTotal + 1,
+      quizCorrect: prog.quizCorrect + (correct ? 1 : 0),
+      seen: prog.seen.includes(question.item.id)
+        ? prog.seen
+        : [...prog.seen, question.item.id],
     })
 
     window.setTimeout(() => {
@@ -131,7 +139,7 @@ export function QuizMode({ items, map, progress, onProgress, onBack }: Props) {
             type="button"
             className="btn primary"
             onClick={() => {
-              setQueue(shuffle(items))
+              setQueue(buildSrsQueue(items, progressRef.current))
               setRetry([])
               setPhase('name')
               setSelected(null)

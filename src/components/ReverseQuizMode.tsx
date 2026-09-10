@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Component, ComponentId, Item, ProgressState } from '../types'
-import { shuffle } from '../utils'
+import { buildSrsQueue, gradeSrs, shuffle } from '../utils'
 import { ComponentChip } from './ComponentChip'
 import { ItemIcon } from './ItemIcon'
 
@@ -11,6 +11,7 @@ interface Props {
   progress: ProgressState
   onProgress: (next: ProgressState) => void
   onBack: () => void
+  initialQueue?: Item[]
 }
 
 type Phase = 'pick' | 'done'
@@ -29,8 +30,11 @@ export function ReverseQuizMode({
   progress,
   onProgress,
   onBack,
+  initialQueue,
 }: Props) {
-  const [queue, setQueue] = useState<Item[]>(() => shuffle(items))
+  const [queue, setQueue] = useState<Item[]>(
+    () => initialQueue ?? buildSrsQueue(items, progress),
+  )
   const [retry, setRetry] = useState<Item[]>([])
   const [phase, setPhase] = useState<Phase>('pick')
   const [slots, setSlots] = useState<Slots>([null, null])
@@ -56,15 +60,8 @@ export function ReverseQuizMode({
     (allCorrect: boolean, item: Item) => {
       const rest = queue.slice(1)
       let nextRetry = retry
-      const prog = progressRef.current
       if (!allCorrect) {
         nextRetry = [...retry, item]
-      } else if (!prog.mastered.includes(item.id)) {
-        onProgress({
-          ...prog,
-          mastered: [...prog.mastered, item.id],
-          seen: prog.seen.includes(item.id) ? prog.seen : [...prog.seen, item.id],
-        })
       }
 
       if (rest.length === 0) {
@@ -88,7 +85,7 @@ export function ReverseQuizMode({
       checkingRef.current = false
       setQKey((k) => k + 1)
     },
-    [onProgress, queue, retry],
+    [queue, retry],
   )
 
   const checkAnswer = useCallback(
@@ -99,12 +96,12 @@ export function ReverseQuizMode({
       setFeedback(correct ? 'correct' : 'wrong')
 
       const prog = progressRef.current
-      onProgress({
+      const withStats: ProgressState = {
         ...prog,
         quizTotal: prog.quizTotal + 1,
         quizCorrect: prog.quizCorrect + (correct ? 1 : 0),
-        seen: prog.seen.includes(item.id) ? prog.seen : [...prog.seen, item.id],
-      })
+      }
+      onProgress(gradeSrs(withStats, item.id, correct))
 
       window.setTimeout(() => {
         advance(correct, item)
@@ -172,7 +169,7 @@ export function ReverseQuizMode({
             type="button"
             className="btn primary"
             onClick={() => {
-              setQueue(shuffle(items))
+              setQueue(buildSrsQueue(items, progressRef.current))
               setRetry([])
               setPhase('pick')
               setSlots([null, null])

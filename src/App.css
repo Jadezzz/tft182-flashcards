@@ -62,6 +62,26 @@
   font-size: 0.75rem;
 }
 
+.stat.highlight {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  background: color-mix(in srgb, var(--primary) 12%, var(--bg-elevated));
+}
+
+.stat.highlight strong {
+  color: var(--primary);
+}
+
+.srs-note {
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.srs-stats {
+  margin-top: 4px;
+}
+
 .home-nav {
   display: flex;
   flex-direction: column;

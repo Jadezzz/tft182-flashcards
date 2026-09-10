@@ -34,9 +34,18 @@ export interface ItemsData {
 
 export type Mode = 'home' | 'quiz' | 'flashcard' | 'reverse'
 
+export interface SrsCard {
+  intervalDays: number // 0 = new/learning
+  ease: number // start 2.5
+  dueAt: number // timestamp ms
+  reps: number
+  lapses: number
+}
+
 export interface ProgressState {
   seen: string[]
   mastered: string[]
   quizCorrect: number
   quizTotal: number
+  srs: Record<string, SrsCard>
 }
