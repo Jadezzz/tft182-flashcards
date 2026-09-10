@@ -1,0 +1,53 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f1419;
+  --bg-elevated: #1a222d;
+  --bg-card: #232d3b;
+  --border: #2f3b4c;
+  --text: #e8eef6;
+  --muted: #8b9bb0;
+  --primary: #4ea1ff;
+  --primary-press: #2f86e8;
+  --ok: #3dd68c;
+  --bad: #ff6b7a;
+  --radius: 16px;
+  --tap: 52px;
+  font-family: 'Segoe UI', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei',
+    system-ui, sans-serif;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  background:
+    radial-gradient(ellipse at top, #1a2740 0%, transparent 55%),
+    var(--bg);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+button:disabled {
+  opacity: 0.7;
+}

@@ -1,0 +1,268 @@
+{
+  "patch": "18.2",
+  "set": 18,
+  "components": [
+    { "id": "bf_sword", "nameZh": "暴風大劍", "nameEn": "B.F. Sword", "color": "#c9a227" },
+    { "id": "recurve_bow", "nameZh": "反曲之弓", "nameEn": "Recurve Bow", "color": "#5cb85c" },
+    { "id": "nl_rod", "nameZh": "無用大棒", "nameEn": "Needlessly Large Rod", "color": "#d9534f" },
+    { "id": "tear", "nameZh": "女神之淚", "nameEn": "Tear of the Goddess", "color": "#5bc0de" },
+    { "id": "chain_vest", "nameZh": "鎖子甲", "nameEn": "Chain Vest", "color": "#f0ad4e" },
+    { "id": "negatron", "nameZh": "負極斗篷", "nameEn": "Negatron Cloak", "color": "#9b59b6" },
+    { "id": "giants_belt", "nameZh": "巨人腰帶", "nameEn": "Giant's Belt", "color": "#2ecc71" },
+    { "id": "sparring_gloves", "nameZh": "拳擊手套", "nameEn": "Sparring Gloves", "color": "#e74c3c" }
+  ],
+  "items": [
+    {
+      "id": "deathblade",
+      "nameZh": "死神之刃",
+      "nameEn": "Deathblade",
+      "components": ["bf_sword", "bf_sword"],
+      "effect": "提供大量攻擊力與傷害增幅（約 55% AD、10% 傷害增幅）"
+    },
+    {
+      "id": "giant_slayer",
+      "nameZh": "巨人殺手",
+      "nameEn": "Giant Slayer",
+      "components": ["bf_sword", "recurve_bow"],
+      "effect": "對坦克額外獲得 15% 傷害增幅"
+    },
+    {
+      "id": "hextech_gunblade",
+      "nameZh": "海克斯科技槍刃",
+      "nameEn": "Hextech Gunblade",
+      "components": ["bf_sword", "nl_rod"],
+      "effect": "造成傷害的 20% 治療生命百分比最低的友軍"
+    },
+    {
+      "id": "spear_of_shojin",
+      "nameZh": "朔極之矛",
+      "nameEn": "Spear of Shojin",
+      "components": ["bf_sword", "tear"],
+      "effect": "攻擊獲得 5 額外法力"
+    },
+    {
+      "id": "edge_of_night",
+      "nameZh": "夜之鋒刃",
+      "nameEn": "Edge of Night",
+      "components": ["bf_sword", "chain_vest"],
+      "effect": "生命降至 40% 時短暫無法被選取、清除負面效果，並回復 15% 已損生命"
+    },
+    {
+      "id": "bloodthirster",
+      "nameZh": "飲血劍",
+      "nameEn": "Bloodthirster",
+      "components": ["bf_sword", "negatron"],
+      "effect": "戰鬥中首次降至 50% 生命時獲得 30% 最大生命護盾（約 5 秒）；含全能吸血與 AD/AP"
+    },
+    {
+      "id": "steraks_gage",
+      "nameZh": "史特拉克的挑戰護手",
+      "nameEn": "Sterak's Gage",
+      "components": ["bf_sword", "giants_belt"],
+      "effect": "生命降至 60% 時獲得等同 40% 最大生命的護盾，於約 4 秒內快速衰減"
+    },
+    {
+      "id": "infinity_edge",
+      "nameZh": "無盡之刃",
+      "nameEn": "Infinity Edge",
+      "components": ["bf_sword", "sparring_gloves"],
+      "effect": "獲得精準：技能可暴擊；多餘精準改為提供 10% 暴擊傷害"
+    },
+    {
+      "id": "red_buff",
+      "nameZh": "紅霸符",
+      "nameEn": "Red Buff",
+      "components": ["recurve_bow", "recurve_bow"],
+      "effect": "攻擊與技能使敵人燃燒 1% 並施加 33% 重傷，持續 5 秒"
+    },
+    {
+      "id": "guinsoos_rageblade",
+      "nameZh": "鬼索的狂暴之刃",
+      "nameEn": "Guinsoo's Rageblade",
+      "components": ["recurve_bow", "nl_rod"],
+      "effect": "每秒獲得 7% 可疊加攻速"
+    },
+    {
+      "id": "void_staff",
+      "nameZh": "虛空之杖",
+      "nameEn": "Void Staff",
+      "components": ["recurve_bow", "tear"],
+      "effect": "攻擊與技能使目標魔抗削減 30%，持續 5 秒（不疊加）"
+    },
+    {
+      "id": "titans_resolve",
+      "nameZh": "泰坦的決意",
+      "nameEn": "Titan's Resolve",
+      "components": ["recurve_bow", "chain_vest"],
+      "effect": "攻擊或受傷時疊加 2% AD/AP，最多 25 層；滿層獲得 10% 傷害增幅與無法阻擋"
+    },
+    {
+      "id": "krakens_fury",
+      "nameZh": "海妖之怒",
+      "nameEn": "Kraken's Fury",
+      "components": ["recurve_bow", "negatron"],
+      "effect": "攻擊疊加 3.5% AD（最多 15 次）；滿後獲得 15% 攻速"
+    },
+    {
+      "id": "nashors_tooth",
+      "nameZh": "納什之牙",
+      "nameEn": "Nashor's Tooth",
+      "components": ["recurve_bow", "giants_belt"],
+      "effect": "攻擊獲得 2 法力；暴擊時增至 4 法力"
+    },
+    {
+      "id": "last_whisper",
+      "nameZh": "最後的輕語",
+      "nameEn": "Last Whisper",
+      "components": ["recurve_bow", "sparring_gloves"],
+      "effect": "攻擊與技能使目標護甲削減 30%，持續 3 秒（不疊加）"
+    },
+    {
+      "id": "rabadons_deathcap",
+      "nameZh": "滅世者的死亡之帽",
+      "nameEn": "Rabadon's Deathcap",
+      "components": ["nl_rod", "nl_rod"],
+      "effect": "提供大量法術強度與傷害增幅（約 55% AP、15% 傷害增幅）"
+    },
+    {
+      "id": "archangels_staff",
+      "nameZh": "大天使之杖",
+      "nameEn": "Archangel's Staff",
+      "components": ["nl_rod", "tear"],
+      "effect": "戰鬥開始後每 5 秒獲得 20% 法術強度"
+    },
+    {
+      "id": "crownguard",
+      "nameZh": "冕衛",
+      "nameEn": "Crownguard",
+      "components": ["nl_rod", "chain_vest"],
+      "effect": "戰鬥開始獲得 25% 最大生命護盾（8 秒）；護盾結束後獲得 25% 法術強度"
+    },
+    {
+      "id": "ionic_spark",
+      "nameZh": "離子火花",
+      "nameEn": "Ionic Spark",
+      "components": ["nl_rod", "negatron"],
+      "effect": "2 格內敵人魔抗削減 30%；敵人施放技能時造成等同消耗法力 150% 的魔法傷害"
+    },
+    {
+      "id": "morellonomicon",
+      "nameZh": "莫雷洛秘典",
+      "nameEn": "Morellonomicon",
+      "components": ["nl_rod", "giants_belt"],
+      "effect": "攻擊與技能使敵人燃燒 1% 並施加 33% 重傷，持續 10 秒"
+    },
+    {
+      "id": "jeweled_gauntlet",
+      "nameZh": "珠光護手",
+      "nameEn": "Jeweled Gauntlet",
+      "components": ["nl_rod", "sparring_gloves"],
+      "effect": "獲得精準：技能可暴擊；多餘精準改為提供 10% 暴擊傷害"
+    },
+    {
+      "id": "blue_buff",
+      "nameZh": "藍霸符",
+      "nameEn": "Blue Buff",
+      "components": ["tear", "tear"],
+      "effect": "來自所有來源的 AD 與 AP 額外增加 10%"
+    },
+    {
+      "id": "protectors_vow",
+      "nameZh": "聖盾使的誓約",
+      "nameEn": "Protector's Vow",
+      "components": ["tear", "chain_vest"],
+      "effect": "戰鬥開始獲得 20 法力；生命降至 40% 時再獲 15 法力與 20% 最大生命護盾"
+    },
+    {
+      "id": "adaptive_helm",
+      "nameZh": "適應性頭盔",
+      "nameEn": "Adaptive Helm",
+      "components": ["tear", "negatron"],
+      "effect": "來自所有來源的法力額外增加 15%；依角色獲得額外護甲魔抗或 AD/AP"
+    },
+    {
+      "id": "spirit_visage",
+      "nameZh": "振奮盔甲",
+      "nameEn": "Spirit Visage",
+      "components": ["tear", "giants_belt"],
+      "effect": "每秒回復 2% 已損生命"
+    },
+    {
+      "id": "hand_of_justice",
+      "nameZh": "正義之手",
+      "nameEn": "Hand of Justice",
+      "components": ["tear", "sparring_gloves"],
+      "effect": "基礎 AD/AP 18% 與全能吸血 15%；高於 50% 生命時加倍 AD/AP，低於則加倍吸血"
+    },
+    {
+      "id": "bramble_vest",
+      "nameZh": "棘刺背心",
+      "nameEn": "Bramble Vest",
+      "components": ["chain_vest", "chain_vest"],
+      "effect": "獲得 6% 最大生命；攻擊傷害減少 5%，受普攻時對鄰近敵人造成魔法傷害（2 秒冷卻）"
+    },
+    {
+      "id": "gargoyle_stoneplate",
+      "nameZh": "石像鬼石板甲",
+      "nameEn": "Gargoyle Stoneplate",
+      "components": ["chain_vest", "negatron"],
+      "effect": "每個以持有者為目標的敵人提供 10 護甲與 10 魔抗"
+    },
+    {
+      "id": "sunfire_cape",
+      "nameZh": "日炎斗篷",
+      "nameEn": "Sunfire Cape",
+      "components": ["chain_vest", "giants_belt"],
+      "effect": "獲得 8% 最大生命；每 2 秒對 2 格內一名敵人燃燒 1% 並施加 33% 重傷（10 秒）"
+    },
+    {
+      "id": "steadfast_heart",
+      "nameZh": "堅定之心",
+      "nameEn": "Steadfast Heart",
+      "components": ["chain_vest", "sparring_gloves"],
+      "effect": "獲得 5% 耐久；生命高於 50% 時改為 15% 耐久"
+    },
+    {
+      "id": "dragons_claw",
+      "nameZh": "龍爪",
+      "nameEn": "Dragon's Claw",
+      "components": ["negatron", "negatron"],
+      "effect": "獲得 6% 最大生命；每 2 秒回復 2.5% 最大生命"
+    },
+    {
+      "id": "evenshroud",
+      "nameZh": "薄暮法袍",
+      "nameEn": "Evenshroud",
+      "components": ["negatron", "giants_belt"],
+      "effect": "2 格內敵人護甲削減 30%；戰鬥前 15 秒獲得 15 護甲與魔抗"
+    },
+    {
+      "id": "quicksilver",
+      "nameZh": "水銀",
+      "nameEn": "Quicksilver",
+      "components": ["negatron", "sparring_gloves"],
+      "effect": "戰鬥開始無法阻擋 18 秒；每秒獲得 3% 可疊加攻速"
+    },
+    {
+      "id": "warmogs_armor",
+      "nameZh": "狂徒鎧甲",
+      "nameEn": "Warmog's Armor",
+      "components": ["giants_belt", "giants_belt"],
+      "effect": "獲得 18% 最大生命"
+    },
+    {
+      "id": "strikers_flail",
+      "nameZh": "強襲者的鏈枷",
+      "nameEn": "Striker's Flail",
+      "components": ["giants_belt", "sparring_gloves"],
+      "effect": "暴擊獲得 5% 傷害增幅，持續 5 秒，最多疊加 4 層"
+    },
+    {
+      "id": "thiefs_gloves",
+      "nameZh": "竊賊手套",
+      "nameEn": "Thief's Gloves",
+      "components": ["sparring_gloves", "sparring_gloves"],
+      "effect": "每回合裝備兩件隨機成裝（佔用 3 個裝備欄）"
+    }
+  ]
+}

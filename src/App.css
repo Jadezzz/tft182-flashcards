@@ -1,0 +1,345 @@
+.app {
+  width: min(100%, 430px);
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100dvh;
+}
+
+.hero {
+  text-align: center;
+  padding: 12px 4px 4px;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #243247;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.lede {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.stat {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat strong {
+  font-size: 1.25rem;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.home-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn {
+  min-height: var(--tap);
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+  background: var(--bg-card);
+  transition: transform 0.12s ease, background 0.12s ease;
+  touch-action: manipulation;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: #061018;
+  font-weight: 700;
+}
+
+.btn.primary:active {
+  background: var(--primary-press);
+}
+
+.btn.secondary {
+  background: var(--bg-elevated);
+  border-color: var(--border);
+}
+
+.btn.ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.btn.xl {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 72px;
+  padding: 16px 18px;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.btn-sub {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.btn.grow {
+  flex: 1;
+}
+
+.footer {
+  margin-top: auto;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.recipe-pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.plus {
+  color: var(--muted);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  min-height: 48px;
+}
+
+.chip-lg {
+  min-width: 120px;
+  justify-content: center;
+}
+
+.chip-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--chip-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--chip-color) 60%, transparent);
+  flex-shrink: 0;
+}
+
+.chip-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.flashcard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 280px;
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.card-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.item-name {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.item-en {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.item-effect {
+  margin: 0;
+  background: #182131;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.actions.row {
+  display: flex;
+  gap: 10px;
+}
+
+.quiz-prompt {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 12px;
+}
+
+.quiz-prompt h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option {
+  min-height: var(--tap);
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  touch-action: manipulation;
+}
+
+.option.correct {
+  border-color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 18%, var(--bg-card));
+}
+
+.option.wrong {
+  border-color: var(--bad);
+  background: color-mix(in srgb, var(--bad) 18%, var(--bg-card));
+}
+
+.feedback {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+}
+
+.feedback.correct {
+  color: var(--ok);
+}
+
+.feedback.wrong {
+  color: var(--bad);
+}
+
+.empty-state {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 40px 12px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.empty-state h2 {
+  margin: 0;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (max-width: 374px) {
+  .chip-lg {
+    min-width: 100px;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+}
