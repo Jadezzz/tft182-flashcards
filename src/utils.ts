@@ -137,17 +137,20 @@ export function getSrsCounts(items: Item[], progress: ProgressState, now = Date.
 /**
  * Prefer due items, then new. Sort: overdue first, then new, shuffle within buckets.
  * Cap at `limit` (default 20): all due first, fill with new up to limit.
+ * `includeAhead`: also pull not-yet-due cards (soonest first) so「再測一輪」仍可用。
  */
 export function buildSrsQueue(
   items: Item[],
   progress: ProgressState,
   limit = SRS_SESSION_LIMIT,
   now = Date.now(),
+  opts?: { includeAhead?: boolean },
 ): Item[] {
   const overdue: Item[] = []
   const dueNow: Item[] = []
   const neu: Item[] = []
   const learning: Item[] = []
+  const ahead: { item: Item; dueAt: number }[] = []
 
   for (const item of items) {
     const card = progress.srs[item.id]
@@ -155,12 +158,16 @@ export function buildSrsQueue(
       neu.push(item)
       continue
     }
-    if (card.dueAt > now) continue
+    if (card.dueAt > now) {
+      ahead.push({ item, dueAt: card.dueAt })
+      continue
+    }
     if (card.intervalDays === 0 || card.reps === 0) {
       learning.push(item)
+    } else if (card.dueAt <= now - DAY_MS) {
+      overdue.push(item)
     } else {
-      if (card.dueAt <= now - DAY_MS) overdue.push(item)
-      else dueNow.push(item)
+      dueNow.push(item)
     }
   }
 
@@ -172,10 +179,23 @@ export function buildSrsQueue(
   ]
 
   const queue: Item[] = []
+  const seen = new Set<string>()
   for (const bucket of buckets) {
     for (const item of bucket) {
       if (queue.length >= limit) return queue
       queue.push(item)
+      seen.add(item.id)
+    }
+  }
+
+  const needAhead = opts?.includeAhead || queue.length === 0
+  if (needAhead && queue.length < limit) {
+    ahead.sort((a, b) => a.dueAt - b.dueAt)
+    for (const { item } of ahead) {
+      if (queue.length >= limit) break
+      if (seen.has(item.id)) continue
+      queue.push(item)
+      seen.add(item.id)
     }
   }
   return queue

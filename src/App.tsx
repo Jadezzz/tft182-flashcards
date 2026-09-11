@@ -44,12 +44,26 @@ export default function App() {
   }
 
   const startQuiz = () => {
-    setSessionQueue(buildSrsQueue(itemsData.items, progress))
+    const due = buildSrsQueue(itemsData.items, progress)
+    setSessionQueue(
+      due.length > 0
+        ? due
+        : buildSrsQueue(itemsData.items, progress, undefined, Date.now(), {
+            includeAhead: true,
+          }),
+    )
     setMode('quiz')
   }
 
   const startReverse = () => {
-    setSessionQueue(buildSrsQueue(itemsData.items, progress))
+    const due = buildSrsQueue(itemsData.items, progress)
+    setSessionQueue(
+      due.length > 0
+        ? due
+        : buildSrsQueue(itemsData.items, progress, undefined, Date.now(), {
+            includeAhead: true,
+          }),
+    )
     setMode('reverse')
   }
 

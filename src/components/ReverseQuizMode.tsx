@@ -161,15 +161,20 @@ export function ReverseQuizMode({
           <span className="meta">反向測驗完成</span>
         </header>
         <div className="empty-state">
-          <h2>全部答完了！</h2>
+          <h2>這一輪練完了！</h2>
           <p>
             累計正確 {progress.quizCorrect} / {progress.quizTotal}
+            <br />
+            <span className="sub">答對的卡會延後再出；再測一輪可提前複習。</span>
           </p>
           <button
             type="button"
             className="btn primary"
             onClick={() => {
-              setQueue(buildSrsQueue(items, progressRef.current))
+              const next = buildSrsQueue(items, progressRef.current, undefined, Date.now(), {
+                includeAhead: true,
+              })
+              setQueue(next)
               setRetry([])
               setPhase('pick')
               setSlots([null, null])
@@ -178,7 +183,7 @@ export function ReverseQuizMode({
               setQKey((k) => k + 1)
             }}
           >
-            再測一輪
+            再測一輪（可提前複習）
           </button>
         </div>
       </div>
